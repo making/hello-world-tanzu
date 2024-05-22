@@ -11,7 +11,7 @@ spec:
   - group: gateway.networking.k8s.io
     kind: Gateway
     name: default-gateway
-    sectionName: http-hello-world-tanzu
+    sectionName: https-hello-world-tanzu
   rules:
   - backendRefs:
     - group: ""

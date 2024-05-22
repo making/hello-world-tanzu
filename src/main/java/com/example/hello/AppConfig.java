@@ -22,11 +22,10 @@ public class AppConfig {
 			return uri != null && !(uri.equals("/readyz") || uri.equals("/livez") || uri.startsWith("/actuator"));
 		};
 		Predicate<HttpExchange> excludeRoute53 = httpExchange -> {
-			List<String> userAgents = httpExchange.getRequest().getHeaders().get(HttpHeaders.USER_AGENT);
-			return !CollectionUtils.isEmpty(userAgents)
-					&& userAgents.getFirst().startsWith("Amazon-Route53-Health-Check-Service");
+			String userAgent = CollectionUtils.firstElement(httpExchange.getRequest().getHeaders().get("user-agent"));
+			return userAgent != null && !userAgent.startsWith("Amazon-Route53-Health-Check-Service");
 		};
-		return AccessLoggerBuilder.accessLogger().filter(excludeRoute53.or(excludeActuator)).build();
+		return AccessLoggerBuilder.accessLogger().filter(excludeRoute53.and(excludeActuator)).build();
 	}
 
 }

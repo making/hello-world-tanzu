@@ -7,9 +7,9 @@ spec:
   build:
     buildpacks: {}
     path: ../..
-  nonSecretEnv:
-  - name: BP_JVM_VERSION
-    value: "21"
+    nonSecretEnv:
+    - name: BP_JVM_VERSION
+      value: "21"
   ports:
   - name: main
     port: 8080
